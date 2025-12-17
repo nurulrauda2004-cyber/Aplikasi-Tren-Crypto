@@ -7,8 +7,7 @@ st.set_page_config(page_title="Aplikasi Tren Crypto")
 st.title("📈 Aplikasi Tren Crypto")
 st.caption("Melihat naik atau turunnya harga crypto")
 
-# Data Bitcoin dari GitHub
-DATA_URL = "https://raw.githubusercontent.com/plotly/datasets/master/bitcoin.csv"
+DATA_URL = "https://raw.githubusercontent.com/datasets/bitcoin-price/master/data/bitcoin.csv"
 
 @st.cache_data
 def load_data(url):
@@ -18,15 +17,14 @@ def load_data(url):
 
 df = load_data(DATA_URL)
 
-# Grafik harga
 fig, ax = plt.subplots()
-ax.plot(df["Date"], df["Close"])
+ax.plot(df["Date"], df["Price"])
 ax.set_xlabel("Tanggal")
 ax.set_ylabel("Harga")
 st.pyplot(fig)
 
-# Hasil sederhana
-if df["Close"].iloc[-1] > df["Close"].iloc[0]:
+if df["Price"].iloc[-1] > df["Price"].iloc[0]:
     st.success("📈 Tren Naik")
 else:
     st.error("📉 Tren Turun")
+
